@@ -2,6 +2,7 @@ const express = require("express");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../models/user");
+const { createTokenForUser } = require("../middlewares/auth");
 
 const router = express.Router();
 
@@ -47,14 +48,12 @@ router.post("/signin", async (req, res) => {
     }
 
     // Create a token
-    const token = jwt.sign({ userId: user._id }, "ecomsecret", {
-      expiresIn: "1h",
-    });
+    const token = createTokenForUser(user);
 
     // Respond with token and user info
     res
       .status(200)
-      .json({ token, user: { id: user._id, username: user.username } });
+      .json({ token: token, user: { id: user._id, username: user.username } });
   } catch (error) {
     res.status(500).send("Internal server error");
   }

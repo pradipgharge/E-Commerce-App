@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
@@ -25,6 +27,9 @@ app.use(express.json());
 app.use(cors());
 
 //routes
+app.get("/", (req, res) => {
+  res.send("Express app is running");
+});
 app.use("/user", userRouter);
 
 app.listen(PORT, () => console.log("Server started at PORT:", PORT));
