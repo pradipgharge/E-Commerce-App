@@ -9,10 +9,10 @@ const router = express.Router();
 //route to create a new user
 router.post("/signup", async (req, res) => {
   try {
-    const { username, password } = req.body;
+    const { name, email, password } = req.body;
 
     //check if user already exists
-    const user = await User.findOne({ username: username });
+    const user = await User.findOne({ email: email });
     if (user) {
       return res.status(400).json({ msg: "User already exists" });
     }
@@ -21,7 +21,11 @@ router.post("/signup", async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     //Create a new user
-    const newUser = new User({ username: username, password: hashedPassword });
+    const newUser = new User({
+      name: name,
+      email: email,
+      password: hashedPassword,
+    });
     await newUser.save();
 
     res.status(201).json({ msg: "User registered successfully" });
@@ -33,10 +37,10 @@ router.post("/signup", async (req, res) => {
 //route to signin a user
 router.post("/signin", async (req, res) => {
   try {
-    const { username, password } = req.body;
+    const { email, password } = req.body;
 
     //Check if user exists
-    const user = await User.findOne({ username: username });
+    const user = await User.findOne({ email: email });
     if (!user) {
       return res.status(400).json({ msg: "Invalid username or password" });
     }
@@ -53,7 +57,7 @@ router.post("/signin", async (req, res) => {
     // Respond with token and user info
     res
       .status(200)
-      .json({ token: token, user: { id: user._id, username: user.username } });
+      .json({ token: token, user: { id: user._id, email: user.email } });
   } catch (error) {
     res.status(500).send("Internal server error");
   }
