@@ -30,6 +30,7 @@ router.post("/signup", async (req, res) => {
 
     res.status(201).json({ msg: "User registered successfully" });
   } catch (error) {
+    console.error(error);
     res.status(500).send("Internal Server Error");
   }
 });
@@ -59,6 +60,7 @@ router.post("/signin", async (req, res) => {
       .status(200)
       .json({ token: token, user: { id: user._id, email: user.email } });
   } catch (error) {
+    console.error(error);
     res.status(500).send("Internal server error");
   }
 });

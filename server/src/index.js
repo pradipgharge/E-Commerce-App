@@ -6,9 +6,10 @@ const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
 
 const userRouter = require("./routes/user");
+const productRouter = require("./routes/product");
 
 const app = express();
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 
 //connection to mongodb
 mongoose
@@ -23,7 +24,7 @@ mongoose
   });
 
 //middlewares
-app.use(express.json());
+app.use(express.json()); //parse JSON
 app.use(cors());
 
 //routes
@@ -31,5 +32,6 @@ app.get("/", (req, res) => {
   res.send("Express app is running");
 });
 app.use("/user", userRouter);
+app.use("/products", productRouter);
 
-app.listen(PORT, () => console.log("Server started at PORT:", PORT));
+app.listen(PORT, () => console.log("Server running on port:", PORT));
