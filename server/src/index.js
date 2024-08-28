@@ -7,6 +7,7 @@ const jwt = require("jsonwebtoken");
 
 const userRouter = require("./routes/user");
 const productRouter = require("./routes/product");
+const categoryRouter = require("./routes/category");
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -33,5 +34,6 @@ app.get("/", (req, res) => {
 });
 app.use("/user", userRouter);
 app.use("/products", productRouter);
+app.use("/categories", categoryRouter);
 
 app.listen(PORT, () => console.log("Server running on port:", PORT));

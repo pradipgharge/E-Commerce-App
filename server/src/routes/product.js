@@ -29,18 +29,4 @@ router.get("/:productId", verifyToken, async (req, res) => {
   }
 });
 
-//route to delete a product by productId from the db
-router.delete(":/productId", verifyToken, async (req, res) => {
-  try {
-    const product = await Product.findByIdAndDelete(req.params.id);
-    if (!product) {
-      return res.status(404).json({ msg: "Product not found" });
-    }
-    res.status(200).json({ msg: "Product deleted" });
-  } catch (error) {
-    console.log(error);
-    res.status(500).send("Internal Server Error");
-  }
-});
-
 module.exports = router;
