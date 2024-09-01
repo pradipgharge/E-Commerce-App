@@ -2,13 +2,14 @@ require("dotenv").config();
 
 const express = require("express");
 const cors = require("cors");
-const mongoose = require("mongoose");
 
 const userRouter = require("./routes/user");
 const productRouter = require("./routes/product");
 const categoryRouter = require("./routes/category");
 const cartRouter = require("./routes/cart");
+const wishlistRouter = require("./routes/wishlist");
 const orderRouter = require("./routes/order");
+
 const { connectToMongoDb } = require("./connection");
 
 const app = express();
@@ -30,6 +31,7 @@ app.get("/", (req, res) => {
 
 app.use("/user", userRouter);
 app.use("/user/cart", cartRouter);
+app.use("/user/wishlist", wishlistRouter);
 app.use("user/order", orderRouter);
 app.use("/products", productRouter);
 app.use("/categories", categoryRouter);
