@@ -9,6 +9,7 @@ const categoryRouter = require("./routes/category");
 const cartRouter = require("./routes/cart");
 const wishlistRouter = require("./routes/wishlist");
 const orderRouter = require("./routes/order");
+const reviewRouter = require("./routes/review");
 
 const { connectToMongoDb } = require("./connection");
 
@@ -32,8 +33,9 @@ app.get("/", (req, res) => {
 app.use("/user", userRouter);
 app.use("/user/cart", cartRouter);
 app.use("/user/wishlist", wishlistRouter);
-app.use("user/order", orderRouter);
+app.use("user/orders", orderRouter);
 app.use("/products", productRouter);
+app.use("/products/:productId/reviews", reviewRouter);
 app.use("/categories", categoryRouter);
 
 app.listen(PORT, () => console.log("Server running on port:", PORT));

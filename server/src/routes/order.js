@@ -40,9 +40,9 @@ router.get("/", verifyToken, async (req, res) => {
 });
 
 //route to get a single order by id
-router.get("/:id", verifyToken, async (req, res) => {
+router.get("/:orderId", verifyToken, async (req, res) => {
   try {
-    const { orderId } = req.params.id;
+    const { orderId } = req.params.orderId;
     const order = await Order.findById({ orderId }).populate("items.porduct");
 
     if (!order) {
@@ -57,10 +57,10 @@ router.get("/:id", verifyToken, async (req, res) => {
 });
 
 //route to update an order
-router.put("/:id", verifyToken, async (req, res) => {
+router.put("/:orderId", verifyToken, async (req, res) => {
   try {
     const { status } = req.body;
-    const { orderId } = req.params.id;
+    const { orderId } = req.params.orderId;
 
     // Find the order and ensure it belongs to the user
     let order = await Order.findById({ orderId }).populate("items.porduct");

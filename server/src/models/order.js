@@ -5,14 +5,14 @@ const Product = require("../models/product");
 const orderSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId, //specifies that user field will store an objectId.
-    ref: User, // tells mongoose that user field references the User model, when we use populate in mongoose,it will replace the ObjectId stored in user with the actual User document.
+    ref: "User", // tells mongoose that user field references the User model, when we use populate in mongoose,it will replace the ObjectId stored in user with the actual User document.
     required: true,
   },
   items: [
     {
       product: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: Product,
+        ref: "Product",
         required: true,
       },
       quantity: {
